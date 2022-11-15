@@ -1,6 +1,6 @@
 
 def setupKubernetes(String arch = "amd64") {
-    if (!"${arch}".contains("s390x")) {
+    if (!"${arch}".contains("s390x") && !"${arch}".contains("ppc64le")) {
         // set SElinux to permisive mode
         sh(script: "sudo setenforce 0")
         // Install conntrack
@@ -28,6 +28,10 @@ def installYq(String workspace, String arch = "amd64") {
 
 def buildKeycloakAndOpa_s390x(String workspace) {
     sh(script: "${workspace}/.jenkins/scripts/build_keycloak_opa-s390x.sh")
+}
+
+def buildKeycloakAndOpa_ppc64le(String workspace) {
+    sh(script: "${workspace}/.jenkins/scripts/build_keycloak_opa-ppc64le.sh")
 }
 
 def buildStrimziImages() {
